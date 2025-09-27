@@ -3,6 +3,14 @@ import uuid
 import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext
 
+root = tk.Tk()
+root.title("Mass File Renamer")
+
+# Tambahkan icon (gunakan ico agar kompatibel Windows)
+icon_path = os.path.join("assets", "ic-card-file-box.ico")
+if os.path.exists(icon_path):
+    root.iconbitmap(icon_path) 
+
 def normalize_path(p: str) -> str:
     p = p.strip()
     if not p:
@@ -162,7 +170,7 @@ def rename_files():
         f"Gagal stage1 (tidak bisa rename ke temp): {len(failed_stage1)}",
         f"Gagal stage2 (tidak bisa rename ke final): {len(failed_stage2)}"
     ]
-    # contoh detail bila ada
+    
     if failed_stage1:
         msg_lines.append("\nContoh gagal stage1:")
         for old, err in failed_stage1[:5]:
@@ -174,8 +182,9 @@ def rename_files():
 
     messagebox.showinfo("Hasil Rename", "\n".join(msg_lines))
     current = get_file_list_from_text()
-    succeeded_old = [os.path.abspath(old_path) for old_path, _ in mappings if os.path.exists(_)]  
+    succeeded_old = [os.path.abspath(old_path) for old_path, _ in mappings if os.path.exists(_)] 
 
+# === GUI ===
 root = tk.Tk()
 root.title("Mass File Renamer")
 root.geometry("800x520")
